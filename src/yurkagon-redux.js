@@ -9,6 +9,7 @@ class Store {
     this.refs = [];
 
     this.connect = this.connect.bind(this);
+    this.dispatch = this.dispatch.bind(this);
   }
   subscribe(key, callback) {
   	this.subscriptions[key] = callback;
@@ -29,16 +30,17 @@ class Store {
       component.setState(state);
     });
   }
-  connect(mapStateToProps, mapDispatchToProps) {
-    return (Comp) => {
+  connect(mapStateToProps = ()=>({}), mapDispatchToProps = ()=>({})) {
+    return (Component) => {
       const state = mapStateToProps(this.state);
+      const actions = mapDispatchToProps(this.dispatch);
       class Container extends React.Component {
         constructor(props) {
           super(props);
           this.state = state;
         }
         render() {
-          return <Comp {...this.props} {...this.state} />;
+          return <Component {...this.props} {...this.state} {...actions} />;
         }
       }
       return (props) => <Container {...props} ref={component => this.refs.push({
