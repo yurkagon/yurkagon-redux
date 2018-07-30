@@ -1,11 +1,12 @@
 import React from 'react';
 
 class Store {
-  constructor(reducer = () => ({}), initialState) {
+  constructor(reducer = () => ({}), initialState = {}) {
     this.state = initialState;
     this.reducer = reducer;
     this.subscriptions ={};
     this.state = this.reduce();
+    this.refs = [];
 
     this.connect = this.connect.bind(this);
   }
@@ -20,28 +21,37 @@ class Store {
   }
   dispatch(action) {
     const newState = this.reduce(action);
+    Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](newState, this.state, action));
     this.state = newState;
-    Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](this.state));
-
-    //if(this.provider) this.provider.forceUpdate();
-    if(this.ref) this.ref.forceUpdate();
-    console.log(this.state)
+    this.refs.forEach(el => { 
+      const { component, mapStateToProps } = el;
+      const state = mapStateToProps(this.state);
+      component.setState(state);
+    });
   }
-  setProvider(provider) {
-    this.provider = provider;
-  }
-  connect(mapStateToProps, Comp) {
-    const state = mapStateToProps(this.state);
-    const RefCont = class extends React.Component {
-      render() {
-        return (<Comp {...this.props} {...state}/>);
+  connect(mapStateToProps, mapDispatchToProps) {
+    return (Comp) => {
+      const state = mapStateToProps(this.state);
+      class Container extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = state;
+        }
+        render() {
+          return <Comp {...this.props} {...this.state} />;
+        }
       }
+      return (props) => <Container {...props} ref={component => this.refs.push({
+        component,
+        mapStateToProps,
+        mapDispatchToProps,
+      })} />
     };
-    return props => <RefCont {...props} ref={(ref) => this.ref = ref}/>
   }
 }
 
 export const createStore = (reducer, state) => new Store(reducer, state);
+
 export const combineReducers = reducers => (state = {}, action = {}) => {
   const newState = {};
   Object.keys(reducers).forEach(el => {
@@ -49,11 +59,3 @@ export const combineReducers = reducers => (state = {}, action = {}) => {
   });
   return newState;
 };
-
-export class Provider extends React.Component {
-  render() {
-    console.log('render provider')
-    return <div>{this.props.children}</div>;
-  }
-}
-
