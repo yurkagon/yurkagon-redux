@@ -21,14 +21,18 @@ class Store {
     return this.reducer(this.state, action);
   }
   dispatch(action) {
-    const newState = this.reduce(action);
-    Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](newState, this.state, action));
-    this.state = newState;
-    this.refs.forEach(el => { 
-      const { component, mapStateToProps } = el;
-      const state = mapStateToProps(this.state);
-      component.setState(state);
-    });
+    if (typeof action === 'object') {
+      const newState = this.reduce(action);
+      Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](newState, this.state, action));
+      this.state = newState;
+      this.refs.forEach(el => { 
+        const { component, mapStateToProps } = el;
+        const state = mapStateToProps(this.state);
+        component.setState(state);
+      });
+    } else if (typeof action === 'function') {
+      action(this.dispatch);
+    }
   }
   connect(mapStateToProps = ()=>({}), mapDispatchToProps = ()=>({})) {
     return (Component) => {
@@ -46,7 +50,6 @@ class Store {
       return (props) => <Container {...props} ref={component => this.refs.push({
         component,
         mapStateToProps,
-        mapDispatchToProps,
       })} />
     };
   }

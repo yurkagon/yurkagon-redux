@@ -1,5 +1,5 @@
 const initialState = {
-  name: 'Roik pidar',
+  name: 'Hello yura',
   age: null,
 };
 
