@@ -1,4 +1,4 @@
-import { createStore } from './yurkagon-redux';
+import { createStore, connectToReact } from './yurkagon-redux';
 import rootReducer from './reducers/root-reducer';
 
 const logger = (newState, prevState, action) => {
@@ -12,6 +12,6 @@ const logger = (newState, prevState, action) => {
 
 const store = createStore(rootReducer);
 store.subscribe('logger', logger);
+export const connect = connectToReact(store);
 
-export const connect = store.connect;
 export default store;

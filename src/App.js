@@ -1,25 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { connect } from './store';
 import { setName, getPosts } from './actions';
 
 import Header from './compoments/Header';
 
-class App extends Component {
-  state = {
-    header: true
-  }
-  render() {
-    return (
-      <div className="App">
-        {this.state.header && <Header />}
-        {this.props.posts.length && this.props.posts.map((el, index) => <p key={index}>{el.title}</p>)}
-        <button onClick={() => this.setState({header: !this.state.header})}> header toggle </button>
-        <button onClick={() => this.props.setName('Yuragon')}/>
-      </div>
-    );
-  }
-}
+const App = ({ posts, getPosts, setName }) => (
+  <div className="App">
+    <Header />
+    <button onClick={getPosts}>Load posts</button>
+    <button onClick={() => setName('Yuragon')}/>
+    {posts.length && posts.map((el, index) => (
+      <p key={index}>{el.title}</p>
+    ))}
+  </div>
+);
 
 const mapStateToProps = state => ({
   posts: state.data.posts,
