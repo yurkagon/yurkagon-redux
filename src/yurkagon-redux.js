@@ -10,6 +10,7 @@ class Store {
 
     this.connect = this.connect.bind(this);
     this.dispatch = this.dispatch.bind(this);
+    this.conectors = 0;
   }
   subscribe(key, callback) {
   	this.subscriptions[key] = callback;
@@ -25,6 +26,7 @@ class Store {
       const newState = this.reduce(action);
       Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](newState, this.state, action));
       this.state = newState;
+      console.log(this.refs)
       this.refs.forEach(el => {
         const { component, mapStateToProps } = el;
         const state = mapStateToProps(this.state);
@@ -47,14 +49,17 @@ class Store {
           return <Component {...this.props} {...this.state} {...actions} />;
         }
       }
+      const countConnectors = this.conectors;
+      this.conectors += 1;
       return (props) => (
         <Container
           {...props}
           ref={component => {
-            if (component) {
+            if (component && !this.refs[countConnectors]) {
               this.refs.push({
                 component,
                 mapStateToProps,
+                index: countConnectors,
               });
             }
           }}
