@@ -1,40 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Store, { connect } from './store';
+import { connect } from './store';
+import { setName, getPosts } from './actions';
+
+import Header from './compoments/Header';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{this.props.name}</h1>
-          <button onClick={() => this.props.setName('hello world')}> set name as Hello World</button>
-          <button onClick={() => this.props.getPosts()}> getPosts</button>
-        </header>
+        <Header />
         {this.props.posts.length && this.props.posts.map((el, index) => <p key={index}>{el.title}</p>)}
+        <button onClick={() => this.props.setName('Yuragon')}/>
       </div>
     );
   }
 }
 
-const setName = name => ({
-  type: 'SET_NAME',
-  payload: name
-});
-const setPosts = posts => ({
-  type: 'SET_POSTS',
-  payload: posts,
-});
-const getPosts = () => async dispatch => {
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = await data.json();
-  dispatch(setPosts(posts));
-}
-
 const mapStateToProps = state => ({
-  name: state.profile.name,
   posts: state.data.posts
 });
 const mapDispatchToProps = dispatch => ({

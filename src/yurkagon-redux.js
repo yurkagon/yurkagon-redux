@@ -25,7 +25,7 @@ class Store {
       const newState = this.reduce(action);
       Object.keys(this.subscriptions).forEach(el => this.subscriptions[el](newState, this.state, action));
       this.state = newState;
-      this.refs.forEach(el => { 
+      this.refs.forEach(el => {
         const { component, mapStateToProps } = el;
         const state = mapStateToProps(this.state);
         component.setState(state);
@@ -47,10 +47,18 @@ class Store {
           return <Component {...this.props} {...this.state} {...actions} />;
         }
       }
-      return (props) => <Container {...props} ref={component => this.refs.push({
-        component,
-        mapStateToProps,
-      })} />
+      return (props) => (
+        <Container
+          {...props}
+          ref={component => {
+            if (component) {
+              this.refs.push({
+                component,
+                mapStateToProps,
+              });
+            }
+          }}
+        />)
     };
   }
 }
