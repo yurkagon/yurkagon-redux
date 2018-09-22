@@ -1,4 +1,5 @@
-import { createStore, connectToReact } from './yurkagon-redux';
+import { createStore } from './yurkagon-redux';
+import { connectToReact } from './yurkagon-react-redux';
 import rootReducer from './reducers/root-reducer';
 
 const logger = (newState, prevState, action) => {
