@@ -1,13 +1,7 @@
-export const SET_NAME = 'SET_NAME';
-export const SET_POSTS = 'SET_POSTS';
-
-export const setName = name => ({
-  type: SET_NAME,
-  payload: name
-});
+import * as types from './types';
 
 export const setPosts = posts => ({
-  type: SET_POSTS,
+  type: types.SET_POSTS,
   payload: posts,
 });
 

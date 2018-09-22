@@ -10,7 +10,7 @@ const Header = props => (
 );
 
 const mapStateToProps = state => ({
-  name: state.profile.name,
+  name: state.app.title,
 });
 
 export default connect(mapStateToProps)(Header);

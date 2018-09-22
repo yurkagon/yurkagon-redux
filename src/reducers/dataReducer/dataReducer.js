@@ -1,4 +1,4 @@
-import { SET_POSTS } from '../../actions'
+import * as types from '../../actions/data/types';
 
 const initialState = {
   posts: [],
@@ -7,10 +7,8 @@ const initialState = {
 
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_POSTS:
+    case types.SET_POSTS:
       return {...state, posts: action.payload};
-    case 'SET_COMMENTS':
-      return {...state, comments: action.payload};
     default:
       return state;
   }

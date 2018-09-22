@@ -1,10 +1,10 @@
 import { combineReducers } from '../yurkagon-redux';
 
 import dataReducer from './dataReducer';
-import profileReducer from './profileReducer';
+import appReducer from './appReducer';
 
 const rootReducer = combineReducers({
-  profile: profileReducer,
+  app: appReducer,
   data: dataReducer,
 });
 

@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from './../../yurkagon-react-redux';
-import { setName, getPosts } from './../../actions';
-import Header from './../../compoments/Header';
+import Header from './../../components/Header';
+import ColorSelector from './../../components/ColorSelector';
 
-const App = ({ posts, getPosts, setName }) => (
+import { setTitle } from './../../actions/app';
+import { getPosts } from './../../actions/data';
+
+const App = ({ posts, getPosts, setTitle }) => (
   <div className="App">
-    <Header info="111" />
+    <Header />
+    <ColorSelector />
     <button onClick={getPosts}>Load posts</button>
-    <button onClick={() => setName('Yuragon')}/>
+    <button onClick={() => setTitle('Yuragon')}/>
     {posts.length && posts.map((el, index) => (
       <p key={index}>{el.title}</p>
     ))}
@@ -18,7 +22,7 @@ const mapStateToProps = state => ({
   posts: state.data.posts,
 });
 const mapDispatchToProps = dispatch => ({
-  setName: name => dispatch(setName(name)),
+  setTitle: name => dispatch(setTitle(name)),
   getPosts: () => dispatch(getPosts())
 });
 
