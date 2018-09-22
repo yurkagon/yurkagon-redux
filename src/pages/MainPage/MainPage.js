@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from './../../yurkagon-react-redux';
+import { bindActionCreators } from './../../yurkagon-redux';
 import Header from './../../components/Header';
 import ColorSelector from './../../components/ColorSelector';
 
@@ -24,8 +25,8 @@ const mapStateToProps = state => ({
   posts: state.data.posts,
 });
 const mapDispatchToProps = dispatch => ({
-  setTitle: name => dispatch(setTitle(name)),
-  getPosts: () => dispatch(getPosts())
+  setTitle: name => dispatch(setTitle(name)), // without bind action createors
+  getPosts: bindActionCreators(getPosts, dispatch), // with bind action creators
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

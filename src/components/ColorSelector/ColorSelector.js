@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from '../../yurkagon-react-redux';
+import { bindActionCreators } from '../../yurkagon-redux';
 import colors from './colors';
 import './style.css';
 
@@ -22,8 +23,9 @@ const ColorSelector = ({ setBackground, currentColor }) => (
 );
 
 const mapStateToProps = ({ app: { color: currentColor }}) => ({ currentColor });
+
 const mapDispatchToProps = dispatch => ({
-  setBackground: color => dispatch(setColor(color)),
+  setBackground: bindActionCreators(setColor, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorSelector);

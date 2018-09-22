@@ -44,3 +44,12 @@ export const combineReducers = reducers => (state = {}, action = {}) => {
   });
   return newState;
 };
+
+export const bindActionCreators = (action, dispatch) => (...args) => {
+  if (typeof action === 'function') {
+    return dispatch(action.apply(null, args));
+  } else if (typeof action === 'object') {
+    return dispatch(action);
+  }
+  throw new Error('Action creator must be a function or an object');
+};
