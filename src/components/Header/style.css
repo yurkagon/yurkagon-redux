@@ -9,6 +9,8 @@
   padding: 20px;
   color: white;
   margin-bottom: 5px;
+  box-shadow: 3px 10px 34px -4px rgba(0,0,0,0.75);
+  transition: all 0.15s ease;
 }
 
 .App-title {

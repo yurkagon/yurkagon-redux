@@ -14,7 +14,9 @@
   border-radius: 10px;
   border: 1px purple solid;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .color-selector .color-item.selected {
   border: 5px purple solid;
+  box-shadow: 3px 10px 34px -4px rgba(0,0,0,0.63);
 }
