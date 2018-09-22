@@ -2,7 +2,6 @@ import * as types from '../../actions/data/types';
 
 const initialState = {
   posts: [],
-  comments: [],
 };
 
 const dataReducer = (state = initialState, action = {}) => {

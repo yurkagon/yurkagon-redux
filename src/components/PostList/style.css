@@ -1,0 +1,18 @@
+.posts {
+  width: 80%;
+  padding: 5px;
+}
+.posts .item {
+  text-align: left;
+  font-size: 16px;
+  padding: 5px;
+  border: 1px grey solid;
+}
+.posts .item:first-child {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+.posts .item:last-child {
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
