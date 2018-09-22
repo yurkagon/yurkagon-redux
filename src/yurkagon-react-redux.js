@@ -1,5 +1,34 @@
-import React from 'react';
+import React, { createContext, Component } from 'react';
 
+const Context = createContext('yurkagon-react-redux');
+
+export class Provider extends Component {
+  constructor(props) {
+    super(props);
+    const { store: { subscribe } } = props;
+    subscribe('yurkagon-react-redux', () => this.forceUpdate());
+  }
+  render() {
+    const { store: { dispatch, getState }, children } = this.props;
+    const state = getState();
+
+    return (
+      <Context.Provider value={{ state, dispatch }}>
+        {children}
+      </Context.Provider>
+    )
+  }
+}
+
+export const connect = (mapStateToProps = ()=>({}), mapDispatchToProps = ()=>({})) => Component => props => (
+  <Context.Consumer>
+    {({ state, dispatch }) => (
+      <Component {...props} {...mapStateToProps(state)} {...mapDispatchToProps(dispatch)} />
+    )}
+  </Context.Consumer>
+);
+
+/* Old versian made by connect via subscribe
 export const connectToReact = store => {
   return (mapStateToProps = ()=>({}), mapDispatchToProps = ()=>({})) => (function(Component) {
     const state = mapStateToProps(this.state);
@@ -32,3 +61,5 @@ export const connectToReact = store => {
     return (props) => <Container {...props} />;
   }).bind(store);
 };
+const connect = connectToReact(store);
+*/

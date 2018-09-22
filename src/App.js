@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import { connect } from './store';
+import { connect } from './yurkagon-react-redux';
 import { setName, getPosts } from './actions';
 
 import Header from './compoments/Header';
 
 const App = ({ posts, getPosts, setName }) => (
   <div className="App">
-    <Header />
+    <Header info="111" />
     <button onClick={getPosts}>Load posts</button>
     <button onClick={() => setName('Yuragon')}/>
     {posts.length && posts.map((el, index) => (
