@@ -1,9 +1,7 @@
 import React from 'react';
-import './App.css';
-import { connect } from './yurkagon-react-redux';
-import { setName, getPosts } from './actions';
-
-import Header from './compoments/Header';
+import { connect } from './../../yurkagon-react-redux';
+import { setName, getPosts } from './../../actions';
+import Header from './../../compoments/Header';
 
 const App = ({ posts, getPosts, setName }) => (
   <div className="App">

@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from '../yurkagon-react-redux';
-import logo from '../logo.svg';
+import { connect } from '../../yurkagon-react-redux';
+import logo from '../../static/svg/logo.svg';
 
 const Header = props => (
   <header className="App-header">
