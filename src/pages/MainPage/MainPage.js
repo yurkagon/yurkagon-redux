@@ -6,6 +6,8 @@ import ColorSelector from './../../components/ColorSelector';
 import { setTitle } from './../../actions/app';
 import { getPosts } from './../../actions/data';
 
+import './style.css'
+
 const App = ({ posts, getPosts, setTitle }) => (
   <div className="App">
     <Header />

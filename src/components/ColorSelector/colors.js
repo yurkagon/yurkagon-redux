@@ -1,5 +1,6 @@
 export default [
   'green',
   'red',
-  'blue'
+  'blue',
+  '#222'
 ];

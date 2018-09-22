@@ -1,0 +1,20 @@
+.color-selector {
+  height: 100px;
+  width: 500px;
+  border: 1px solid #aaaaaa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.color-selector .color-item {
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
+  border: 1px purple solid;
+  cursor: pointer;
+}
+.color-selector .color-item.selected {
+  border: 5px purple solid;
+}

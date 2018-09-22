@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from '../../yurkagon-react-redux';
+import colors from './colors';
+import './style.css';
 
-const ColorSelector = () => (
-  <div> aaa</div>
+import { setColor } from '../../actions/app';
+
+const ColorSelector = ({ setBackground, currentColor }) => (
+  <Fragment>
+    <h3>Select background color</h3>
+    <div className="color-selector">
+      {colors.map((color, index) => (
+        <div
+          className={`color-item ${color === currentColor ? 'selected' : ''}`}
+          key={`${color}-${index}`}
+          style={{backgroundColor: color}}
+          onClick={() => setBackground(color)}
+        />
+      ))}
+    </div>
+  </Fragment>
 );
 
-export default ColorSelector;
+const mapStateToProps = ({ app: { color: currentColor }}) => ({ currentColor });
+const mapDispatchToProps = dispatch => ({
+  setBackground: color => dispatch(setColor(color)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ColorSelector);
