@@ -1,0 +1,28 @@
+.title-selector {
+  height: 100px;
+  width: 500px;
+  border: 1px solid #aaaaaa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.title-selector .title-item {
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
+  border: 1px purple solid;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 3px;
+}
+.title-selector .title-item.selected {
+  border: 5px purple solid;
+  box-shadow: 3px 10px 34px -4px rgba(0,0,0,0.63);
+}
+.title-selector .line {
+  width: 80px;
+  height: 5px;
+  background: blue;
+}

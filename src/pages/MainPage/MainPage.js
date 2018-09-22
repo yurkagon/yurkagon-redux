@@ -3,6 +3,7 @@ import { connect } from './../../yurkagon-react-redux';
 import { bindActionCreators } from './../../yurkagon-redux';
 import Header from './../../components/Header';
 import ColorSelector from './../../components/ColorSelector';
+import TitleSelector from './../../components/TitleSelector';
 
 import { setTitle } from './../../actions/app';
 import { getPosts } from './../../actions/data';
@@ -13,8 +14,8 @@ const App = ({ posts, getPosts, setTitle }) => (
   <div className="App">
     <Header />
     <ColorSelector />
+    <TitleSelector />
     <button onClick={getPosts}>Load posts</button>
-    <button onClick={() => setTitle('Yuragon')}/>
     {posts.length && posts.map((el, index) => (
       <p key={index}>{el.title}</p>
     ))}
