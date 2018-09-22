@@ -1,6 +1,6 @@
 export default [
   'Yurkagon lokh',
-  'Ralabs is awasome!',
+  'Ralabs is awesome!',
   'Продам гараж',
   'dota 2 govno'
 ];
